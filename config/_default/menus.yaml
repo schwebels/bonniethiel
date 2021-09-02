@@ -19,8 +19,8 @@ main:
   - name: Publications
     url: '#featured'
     weight: 50
-  - name: Courses
-    url: courses/
+  - name: skills
+    url: skills/
     weight: 60
   - name: Contact
     url: '#contact'

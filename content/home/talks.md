@@ -3,6 +3,9 @@
 # Documentation: https://wowchemy.com/docs/page-builder/
 widget: pages
 
+# Activate this widget? true/false
+active: false
+
 # This file represents a page section.
 headless: true
 
@@ -39,5 +42,3 @@ design:
   #   4 = Citation (publication only)
   view: 2
 ---
-# Activate this widget? true/false
-active: false

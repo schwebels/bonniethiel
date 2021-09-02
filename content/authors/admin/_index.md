@@ -1,14 +1,14 @@
 ---
 bio: My research interests include the application of biostatistics, epidemiology and bioinformatics to study *mycobacterium Tuberculosis* (Mtb) and the host immunological response to Mtb infection.
 education:
-
-  - PhD in Systems Biology and Bioinformatics
+  courses:
+  - course: PhD in Systems Biology and Bioinformatics
     institution: Case Western Reserve University
     year: 2021
-  - MS in Genetic Epidemiology
+  - course: MS in Genetic Epidemiology
     institution: Case Western Reserve University
     year: 1998
-  - BSc in Molecular Biology and Biochemistry
+  - course: BSc in Molecular Biology and Biochemistry
     institution: University of Colorado
     year: 1988
 

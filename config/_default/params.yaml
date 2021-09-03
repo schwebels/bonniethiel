@@ -33,10 +33,12 @@ coordinates:
   latitude: '41.50416'
   longitude: '-81.60845'
 directions: From Adelbert Road, enter the Biomedical Research Building (BRB) and take elevator to the 10th floor
-office_hours: ''
-appointment_url: 'https://calendly.com'
- contact_links:
-   - icon: twitter
+office_hours:
+  - ''
+  - ''
+appointment_url: ''
+contact_links:
+  - icon: twitter
     icon_pack: fab
     name: DM Me
     link: 'https://twitter.com/bonthiel'

@@ -29,12 +29,7 @@ experience:
     location: Cleveland
     date_start: '1994-02-01'
     date_end: ''
-    description: |2-
-        Responsibilities include:
-        
-        * statistical analysis
-        * bioinformatics
-        * project and data managment
+    description: Since 2002 I have been a data analyst in the Tuberculosis Research Unit at CWRU. My responsibilities include statistical support for lab experiments, observational studies and clinical trials. I manage several projects and oversee the collection, storage and analysis of study data. I am proficient in R, SAS and Linux/Unix scripting languages and have experience using REDCap, OpenClinica and Access databases. From 1994 to 2002 I worked as a statisical geneticist in the department of Population and Quantitative Health Sciences at CWRU. 
         
   - title: Research technician
     company: Cleveland Clinic
@@ -43,7 +38,7 @@ experience:
     location: Cleveland
     date_start: '1992-03-01'
     date_end: '1994-01-31'
-    description: Purification and characterization of nitric oxide synthase
+    description: In this bench science position I worked on the purification and characterization of proteins. I am proficient in liquid chromatography, mammalian cell culture, and molecular biology.
 
 design:
   columns: '2'

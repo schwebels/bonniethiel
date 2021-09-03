@@ -1,5 +1,21 @@
 ---
-bio: My research interests include the application of biostatistics, epidemiology and bioinformatics to study *mycobacterium Tuberculosis* (Mtb) and the host immunological response to Mtb infection.
+# Display name
+title: Bonnie Thiel
+
+# Is this the primary user of the site?
+superuser: true
+
+# Role/position/tagline
+role: data scientist
+
+# Organizations/Affiliations to show in About widget
+organizations:
+- name: Case Western Reserve University
+  url: https://www.case.edu/
+- name: Tuberculosis Research Unit at CWRU
+  url: https://case.edu/medicine/tbru/
+  
+bio: My area of expertise is in applying the tools of statistics and informatics to study problems in biology and medicine. 
 education:
   courses:
   - course: PhD in Systems Biology and Bioinformatics
@@ -30,10 +46,10 @@ social:
   icon: twitter
   icon_pack: fab
   label: Follow me on Twitter
-  link: https://twitter.com/BonnieThiel
+  link: https://twitter.com/bonthiel
 - icon: graduation-cap
   icon_pack: fas
-  link: https://scholar.google.co.uk/citations?user=sIwtMXoAAAAJ
+  link: https://scholar.google.com/citations?user=00CD9gsAAAAJ&hl=en
 - icon: github
   icon_pack: fab
   link: https://github.com/schwebels

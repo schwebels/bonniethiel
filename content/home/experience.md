@@ -41,5 +41,5 @@ experience:
     description: In this bench science position I worked on the purification and characterization of proteins. I am proficient in liquid chromatography, mammalian cell culture, and molecular biology.
 
 design:
-  columns: '2'
+  columns: ''
 ---

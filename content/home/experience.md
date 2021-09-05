@@ -30,7 +30,9 @@ experience:
     date_start: '1994-02-01'
     date_end: ''
     description: >-
+    
       Since 2002 I have been a data analyst in the Tuberculosis Research Unit at CWRU. 
+      
       My responsibilities include:
       * statistical support for lab experiments, observational studies and clinical trials. 
       * project and data management: overseeing the collection, storage and analysis of study data. 
@@ -38,7 +40,7 @@ experience:
       * Analysis of large -omics experiments utilizing the Linux computing cluster at CWRU
       * Design and maintenance of REDCap databases
       
-      From 1994 to 2002 I worked as a statistical geneticist in the department of Population and Quantitative Health Sciences at CWRU where I performed:
+      From 1994 to 2002 I worked as a statistical geneticist in the department of Population and      Quantitative Health Sciences at CWRU where I performed:
       * genetic analysis of familial and population-based traits including bipolar disorder, prostate cancer, and hypertension
       * candidate gene and genome-wide SNP, linkage and haplotype analysis
       

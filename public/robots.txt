@@ -1,0 +1,3 @@
+User-agent: *
+
+Sitemap: https://bonniethiel.netlify.app/sitemap.xml

@@ -25,7 +25,7 @@ experience:
   - title: Data Analyst
     company: Case Western Reserve University
     company_url: 'case.edu'
-    company_logo: 
+    company_logo: cwru
     location: Cleveland
     date_start: '1994-02-01'
     date_end: ''
@@ -50,7 +50,7 @@ experience:
   - title: Research technician
     company: Cleveland Clinic
     company_url: 'ccf.org'
-    company_logo: 
+    company_logo: cleveland-clinic-logo-svg-vector
     location: Cleveland
     date_start: '1992-03-01'
     date_end: '1994-01-31'

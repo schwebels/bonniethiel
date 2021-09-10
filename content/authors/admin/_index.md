@@ -59,9 +59,9 @@ social:
 # Link to a PDF of your resume/CV.
 # To use: copy your resume to `static/uploads/resume.pdf`, enable `ai` icons in `params.toml`, 
 # and uncomment the lines below.
-- icon: cv
-  icon_pack: ai
-  link: uploads/resume.pdf
+# - icon: cv
+#   icon_pack: ai
+#   link: uploads/resume.pdf
 
 # Highlight the author in author lists? (true/false)
 highlight_name: false
@@ -71,4 +71,4 @@ Bonnie Thiel is a biostatistician working in the Tuberculosis Research group at 
  
 Her main interest is in the application of statistics and bioinformatics tools to analyze experimental and population data. In her current position as a data analyst in the Tuberculosis Research Unit, she is working on the discovery of host biomarkers related to *mycobacterium Tuberculosis* (Mtb) infection and TB disease. From the pathogen side, she is doing comparative genomics of Mtb isolates to identify mutations that may lead to the discovery of new antibiotic candidates.
 
-{{< icon name="download" pack="fas" >}} Download my {{< staticref "uploads/demo_resume.pdf" "newtab" >}}resumé{{< /staticref >}}.
+{{< icon name="download" pack="fas" >}} Download my {{< staticref "uploads/resume.pdf" "newtab" >}}resumé{{< /staticref >}}.

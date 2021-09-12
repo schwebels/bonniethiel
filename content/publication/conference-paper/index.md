@@ -17,7 +17,7 @@ links:
 projects:
 - internal-project
 publication: In *PLOS ONE*
-publication_short: In **
+publication_short: 
 publication_types:
 - "2"
 publishDate: "2021-04-15T00:00:00Z"

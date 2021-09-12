@@ -24,7 +24,7 @@ publishDate: "2021-04-15T00:00:00Z"
 slides: 
 tags:
 - Source Themes
-title: Recently published paper
+title: 
 url_code: ''
 url_dataset: ''
 url_pdf: ''

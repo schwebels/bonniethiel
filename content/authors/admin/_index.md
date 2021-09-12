@@ -67,7 +67,7 @@ social:
 highlight_name: false
 ---
 
-Bonnie Thiel is a biostatistician working in the Tuberculosis Research group at Case Western Reserve University. Starting as a bench scientist working on protein purification and characterization and later in a genetics lab, she continued to to take classes and moved out of the lab in into statistics and data science. 
+Bonnie Thiel is a biostatistician working in the Tuberculosis Research group at Case Western Reserve University. Starting as a bench scientist working on protein purification and characterization and later in a genetics lab, she continued her education and transitioned into statistics and data science. 
  
 Her main interest is in the application of statistics and bioinformatics tools to analyze experimental and population data. In her current position as a data analyst in the Tuberculosis Research Unit, she is working on the discovery of host biomarkers related to *mycobacterium Tuberculosis* (Mtb) infection and TB disease. From the pathogen side, she is doing comparative genomics of Mtb isolates to identify mutations that may lead to the discovery of new antibiotic candidates.
 

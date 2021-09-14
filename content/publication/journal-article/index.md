@@ -4,7 +4,7 @@ author_notes:
 - 
 - 
 authors:
-- 
+- Catherine Stein, Sarah Zalwango, LaShaunda Malone, Bonnie Thiel, et al
 - 
 date: 
 doi: ""
@@ -23,7 +23,7 @@ slides:
 summary: 
 tags:
 - 
-title: 
+title: Resistance and Susceptibility to Mycobacterium Tuberculosis Infection and Disease in Tuberculosis Households in Kampala,Uganda
 url_code: ""
 url_dataset: ""
 url_pdf: https://doi.org/10.1093/aje/kwx380

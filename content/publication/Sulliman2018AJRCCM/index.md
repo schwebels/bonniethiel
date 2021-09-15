@@ -13,8 +13,7 @@ links:
 - name: 
   url: 
 projects:
-- 
-publication: ""
+publication: In *American Journal of Respiratory and Critical Care Medicine*
 publication_short: ""
 publication_types:
 - "2"
@@ -22,7 +21,6 @@ publishDate: "2018-04-06T00:00:00Z"
 slides: 
 summary: 
 tags:
-- 
 title: Four-gene Pan-African Blood Signature Predicts Progression to Tuberculosis
 url_code: ''
 url_dataset: ''

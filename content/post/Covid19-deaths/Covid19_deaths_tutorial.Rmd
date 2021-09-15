@@ -1,26 +1,30 @@
 ---
 title: "Covid19 deaths in the US by state"
-author: "bat"
-date: "9/13/2021"
-output: html_document
+author: Bonnie Thiel
+date: 2021-09-15T21:13:14-05:00
+slug: covid19deaths
+categories: ["R"]
+tags: ["R Markdown", "plot", "descriptive stats"]
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+![covidVirus](/post/covidVirus.jpg)
+START
+
 # Strategy: 
   - Demonstrate how to get data from an internet source 
   - do some data wrangling and simple statistical analysis 
   - plot results
 
-Firstly, if anything goes wrong, it might have to do with differences in the version of R. I'm running R version 4.0.5 (2021-03-31) -- "Shake and Throw". Platform: x86_64-w64-mingw32/x64 (64-bit)
 
 Let's calculate some statistics about deaths from Covid-19 based on CDC data:
 <https://data.cdc.gov/NCHS/Provisional-COVID-19-Deaths-by-Sex-and-Age/9bhg-hcku>
 
 ## step 1:
 On the CDC page click on the EXPORT button on the top right of the page to download the csv file called 'Provisional_COVID-19_Death_Counts_by_Sex__Age.csv'
-download it to your desktop or another folder and copy the path to the file
+download it to your desktop or another folder and copy the path to the clipboard
 
 ## step 2:
 Open R studio and click on File -> New File -> Rscript 
@@ -45,7 +49,7 @@ library(tidyverse)
 Load the dataset using the read.csv() or read.table() function
 
 *NOTE:* the path to your file needs forward slashes / for R not back slashes like windows uses
-Change the path in the read.table() function to where your file is located
+Copy the path from the clipboard in the read.table() function so that R knows where to find your data
 
 read.csv() is the same function but assumes that the file is comma delimited
 str() is a very important function that shows the structure of the data file
@@ -57,21 +61,6 @@ str(covidDeaths)
 head(covidDeaths, n=5)
 ```
 
-# ASIDE: 
-*Another really awesome way to get the data is by using the CDC API. Follow the CDC instructions for getting an account to request an API token.*
-*Then use this code:*
-
-*install.packages("RSocrata")*
-*library("RSocrata")*
-
-*df <- read.socrata(*
-  *"https://data.cdc.gov/resource/9bhg-hcku.json",*
-  *app_token = "YOURAPPTOKENHERE",*
-  *email     = "user@example.com",*
-  *password  = "fakepassword"*
-*)*
-
-
 
 ## step 5 
 
@@ -81,17 +70,24 @@ table(covidDeaths$Sex)
 ```
 
 ```{r }
-table(covidDeaths$Age.group) 
+table(covidDeaths$Age.Group) 
 ```
 
-See how the table() function works? Tell it what variable you want to see a table for and it will give you the frequency of each category
+If you can see the table frequencies then everything seems to be working so let's move on to data wrangling
 
 
+# FILTER 
+if you want to filter to a specific group to calculate the deaths, there are many, *many* ways in R. I think the best way is to use the functions from "tidyverse" along with "magrittr" which allows you to string together commands:
 
+for example, to get only the numbers for males and females 18-29 years:
+```{r , echo=TRUE}
+covidDeaths.MF.18to29 <- covidDeaths %>% filter(Age.Group == "18-29 years" & Sex %in% (c("Male", "Female")))
+head(covidDeaths.MF.18to29)
+```
 
-## Including Plots
+The '<-' symbol is prounounced 'gets' and the %>% is a pipe from the magrittr package and is called 'and then' so the syntax in words is:
 
-You can also embed plots, for example:
+#covidDeaths.MF.18to29 'gets' covidDeaths object 'and then' filters to Age.group= 18-29 and Male or Female sex. **Remember to use '==' not just '='**
 
 ```{r pressure, echo=FALSE}
 plot(pressure)

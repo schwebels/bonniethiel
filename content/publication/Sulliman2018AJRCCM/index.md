@@ -9,9 +9,6 @@ image:
   caption: 
   focal_point: ""
   preview_only: false
-links:
-- name: 
-  url: 
 projects:
 publication: In *American Journal of Respiratory and Critical Care Medicine*
 publication_short: ""

@@ -12,10 +12,9 @@ image:
   focal_point: ""
   preview_only: false
 links:
-- name: Custom Link
+- name: Article Link
   url: https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0249477
 projects:
-- internal-project
 publication: In *PLOS ONE*
 publication_short: 
 publication_types:
@@ -23,7 +22,6 @@ publication_types:
 publishDate: "2021-04-15T00:00:00Z"
 slides: 
 tags:
-- Source Themes
 title: 
 url_code: ''
 url_dataset: ''

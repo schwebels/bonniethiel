@@ -1,5 +1,5 @@
 ---
-title: Covid19 Deaths
+title: R tutorial on downloading and analyzing CDC Covid19 death numbers
 author: Bonnie Thiel
 date: '2021-09-15'
 slug: covid19deaths
@@ -23,29 +23,30 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Strategy: 
   - Demonstrate how to get data from an internet source 
-  - do some data wrangling and simple statistical analysis 
-  - plot results
+  - Do some data wrangling and simple statistical analysis 
+  - Plot results
 
+This assumes you already have R and Rstudio. If not, please start [here](https://rstudio-education.github.io/hopr/starting.html) and then come back
 
 Let's calculate some statistics about deaths from Covid-19 based on CDC data:
 <https://data.cdc.gov/NCHS/Provisional-COVID-19-Deaths-by-Sex-and-Age/9bhg-hcku>
 
-## step 1:
+## step 1 get the data
 On the CDC page click on the EXPORT button on the top right of the page to download the csv file called 'Provisional_COVID-19_Death_Counts_by_Sex__Age.csv'
 download it to your desktop or another folder and copy the path to the clipboard
 
-## step 2:
-Open R studio and click on File -> New File -> Rscript 
+## step 2 Open R studio and click on File -> New File -> Rscript 
 
-You will need some packages so either use the "install.packages()" function, i.e. install.packages(c("tidyverse", "magrittr"))
+## step 3 install necessary R packages (why? because you can't load all the programs available in R - it would be way too much. You have to pick what you need and load those particular programs)
 
-**or** the easier way is to go to the right-side window of Rstudio where it shows tabs for Files-Plots-Packages-Help-Viewer, and click on Packages. 
-Underneath there is a button for "Install". Click install and type in the names of the packages: "magrittr" , "tidyverse". These only have to be installed once until there is an update.
+To install packages use the "install.packages()" function, i.e. in the bottom left console window type: install.packages(c("tidyverse", "magrittr"))
 
-## step 3:
-Load the libraries: this has to be done every time the script is run
+**or** the easier way is to go to the right-side window of Rstudio where it shows tabs for Files-Plots-Packages-Help-Viewer, and click on the **Packages** tab. 
+Underneath, there is a button for "Install". Click install and type in the names of the packages in the pop-up box: "magrittr" , "tidyverse". These only have to be installed once until there is an update.
 
-**magrittr** is for piping - explained later but just so you know the %>% in R is called a pipe. You know the picture by Rene Magritte? of the pipe? 
+## step 4 Load the libraries: this has to be done every time the script is run
+
+**magrittr** is for piping - explained later but just so you know, the %>% in R is called a pipe. You know the picture by Rene Magritte? of the pipe?
 **tidyverse** contains many functions for data wrangling
 
 ```{r , echo=TRUE}
@@ -53,13 +54,12 @@ library(magrittr)
 library(tidyverse) 
 ```
 
-## step 4 
-Load the dataset using the read.csv() or read.table() function
+## step 5  Load the dataset using the read.csv() or read.table() function
 
-*NOTE:* the path to your file needs forward slashes / for R not back slashes like windows uses
-Copy the path from the clipboard in the read.table() function so that R knows where to find your data
+*NOTE:* the path to your file needs forward slashes / for R not back slashes like windows uses. If you copy your path from windows, change the slashes
 
-read.csv() is the same function but assumes that the file is comma delimited
+Copy the path from the clipboard in the read.table() function shown below so that R knows where to find your data
+
 str() is a very important function that shows the structure of the data file
 head() shows the first n rows of data
 
@@ -70,83 +70,80 @@ head(covidDeaths, n=5)
 ```
 
 
-## step 5 
+## step 6 Look at the age and sex categories
+*a really old and lame joke: how can you tell the difference between an epidemiologist and a clinician? The epidemiologist is broken down by age and sex*
 
-Look at some of the variables to get a handle on what we've got:
 ```{r }
-table(covidDeaths$Sex) 
+levels(as.factor(covidDeaths$Sex))
 ```
 
 ```{r }
-table(covidDeaths$Age.Group) 
+levels(as.factor(covidDeaths$Age.Group))
 ```
+The levels() function shows all the different categories that are included in a variable. levels only works on factors so the as.factor() function changes the character variable to a factor. How do you know if a variable is a factor or character or numeric? Look at the output from str() 
+  
+If you can see the categories above then everything seems to be working so let's move on to data wrangling
 
-If you can see the table frequencies then everything seems to be working so let's move on to data wrangling
 
+## FILTER (subset observations/rows) and SELECT (subset variables/columns) 
 
-## FILTER the dataset
-if you want to filter to a specific group to calculate the deaths, there are many, *many* ways in R. I think the best way is to use the functions from "tidyverse" along with "magrittr" which allows you to string together commands:
-
-for example, to get only the numbers for males and females 18-29 years:
+for example, to get only the *Total* numbers  for males and females 18-29 years and keep only the state, age group, sex, covid death numbers and total death numbers:
 ```{r , echo=TRUE}
-covidDeaths.MF.18to29 <- covidDeaths %>% filter(Age.Group == "18-29 years" & Sex %in% (c("Male", "Female")))
+covidDeaths.MF.18to29 <- covidDeaths %>% filter(Group=="By Total" & Age.Group == "18-29 years" & Sex %in% (c("Male", "Female"))) %>% select(State, Age.Group, Sex, COVID.19.Deaths, Total.Deaths) 
 head(covidDeaths.MF.18to29)
 ```
 
-The '<-' symbol is prounounced 'gets' and the %>% is a pipe from the magrittr package and is called 'and then' so the syntax in words is:
+The '<-' symbol is pronounced 'gets' and the %>% is a pipe from the magrittr package and is called 'and then' so the syntax in words is:
 
-#covidDeaths.MF.18to29 'gets' covidDeaths object 'and then' filters to Age.group= 18-29 and Male or Female sex. **Remember to use '==' not just '='**
+#covidDeaths.MF.18to29 'gets' the covidDeaths dataset 'and then' filters to Age.group== 18-29 and sex==Male or Female. **Remember to use '==' not just '='**
 
 ## now do a little analysis:
 
-what is the mean number of covid deaths across all states by male and female for 50 years and older?
-1. have to get rid of the 'United States' total number and include only the state totals
-2. have to filter to only  age 50-64 years plus age 65-74 years plus age 75-84 years plus age 85 years and over 
+What are the mean and median number of covid deaths across all states by male and female for 50 years and older?
+1. Get rid of the 'United States' total number and include only the state totals
+2. Filter to the age groups over 50:  age 50-64 years, plus age 65-74 years, plus age 75-84 years, plus age 85 years and over 
 
 ```{r , echo=TRUE}
 covidDeaths.MF.over50 <- covidDeaths %>% 
-  filter(Age.Group %in% c("50-64 years", "65-74 years", "75-84 years","85 years and over") & 
+  filter(Group=="By Total" & Age.Group %in% c("50-64 years", "65-74 years", "75-84 years","85 years and over") & 
 Sex %in% (c("Male", "Female"))) %>% 
   filter(!State ==  "United States") %>% 
-  select(State, Age.Group, Sex, COVID.19.Deaths, Total.Deaths, Pneumonia.Deaths, Pneumonia.and.COVID.19.Deaths, Influenza.Deaths, Pneumonia..Influenza..or.COVID.19.Deaths) 
+  select(State, Age.Group, Sex, COVID.19.Deaths, Total.Deaths) 
 head(covidDeaths.MF.over50) 
+covidDeaths.MF.over50 %>% filter(State=="Ohio")
 ```
 
+3. Calculate the mean and median number of covid deaths
 ```{r , echo=TRUE}
 covidDeaths.MF.over50 %>% group_by(Sex) %>% 
   summarize(meanDeaths=mean(COVID.19.Deaths), medianDeaths=median(COVID.19.Deaths))
 ```
 
-UGH it didn't work! - probably because there are some states with no COVID deaths so it can't get the mean
-
-to figure out what to do just ##google the problem##. I looked at this page <https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/median>
-it says the syntax is: 'median(x, na.rm = FALSE). That means by default it will not remove the NA values. Let's change to TRUE
+UGH it didn't work! - this is because there are some states with no COVID deaths and the mean and median functions do not exclude NA values by default, i.e. median(x, na.rm = FALSE). Let's change this #function argument# to TRUE so that the function will remove the NA values when computing the statistic
 
 ```{r , echo=TRUE}
 covidDeaths.MF.over50 %>% group_by(Sex) %>% 
   summarize(meanDeaths=mean(COVID.19.Deaths, na.rm=TRUE), medianDeaths=median(COVID.19.Deaths, na.rm=TRUE))
 ```
+OK first off we see clearly that the medians are smaller than the means. This tells us that there are a few states with a very high number of deaths and a bunch of other states with small numbers.
 
+This reminds me that we should probably take into account the total number of deaths so that we can compare deaths across states while accounting for the differences in state populations.
 
-first, look at this object. It's called a 'tibble' which is a silly name but it's basically like a data.frame which you can think of as a single Excel sheet with rows of observations and columns of variables (variables that don't have to be all numeric or all character)
-
-But it also looks like a table, right? 
-let's give it a name by assigning it a name with the '<-' operator:
 ```{r , echo=TRUE}
-covidDeathsTable1 <- covidDeaths.MF.over50 %>% group_by(Sex) %>% 
-  summarize(meanDeaths=mean(COVID.19.Deaths, na.rm=TRUE), medianDeaths=median(COVID.19.Deaths, na.rm=TRUE))
-str(covidDeathsTable1)
+covidDeaths.MF.over50.1 <- covidDeaths.MF.over50 %>% 
+  mutate(proportional.covid.deaths = ifelse(COVID.19.Deaths==0, NA, COVID.19.Deaths/Total.Deaths))
+tail(covidDeaths.MF.over50.1)
+#covidDeaths.MF.over50.1 %>% filter(State=="Ohio")
 ```
 
-
-#now the table is an R object so we can apply functions to it. Like the mean:
 ```{r , echo=TRUE}
-mean(covidDeathsTable1$meanDeaths)
+covidDeaths.MF.over50.1 %>% group_by(Sex) %>% 
+  summarize(meanDeaths=mean(proportional.covid.deaths, na.rm=TRUE), medianDeaths=median(proportional.covid.deaths, na.rm=TRUE))
 ```
+That looks better - now the overall mean and median proportion of deaths due to covid19 are about the same
 
-this is the mean of the mean deaths in the table. So you can analyze datasets created from other datasets!
 
-## make a graph of the state numbers by sex
+## Look at the data. Make a graph of the state proportion of covid deaths by sex
 
 get a graphing package called 'ggpubr' that's pretty easy to use. See <http://www.sthda.com/english/articles/24-ggpubr-publication-ready-plots/>
 install the package "ggpubr" using the lower right hand box in Rstudio
@@ -157,34 +154,31 @@ library(ggpubr)
 
 to plot each state by deaths over 50 years we have to first condense all the deaths by sex within the state because we want only 2 rows for each state; one for M and one for F because right now the data look like this:
 ```{r , echo=TRUE}
-covidDeaths.MF.over50 %>% select(State, Age.Group, Sex, COVID.19.Deaths) %>% 
+covidDeaths.MF.over50.1 %>% select(State, Age.Group, Sex, proportional.covid.deaths) %>% 
 head()
 ```
 
 ```{r , echo=TRUE}
-covidDeaths.StateSummary.Over50 <- covidDeaths.MF.over50 %>% group_by(State,Sex) %>%
-  summarise(Total.Deaths=sum(COVID.19.Deaths, na.rm=TRUE)) 
+covidDeaths.StateSummary.Over50 <- covidDeaths.MF.over50.1 %>% group_by(State,Sex) %>%
+      summarise(Total.DeathsOver50=sum(Total.Deaths, na.rm=TRUE),
+                Total.Covid19.DeathsOver50=sum(COVID.19.Deaths, na.rm=TRUE)) %>% 
+  mutate(Total.prop.CovidDeathsOver50 = Total.Covid19.DeathsOver50/Total.DeathsOver50)
 head(covidDeaths.StateSummary.Over50)
 ```
 
-See, it's easy to summarise with the 'tidyverse' package. (actually summarize() works too) 
-
-so now we can try plotting:
+We have the data summarized nicely so we can try plotting:
 ```{r , echo=TRUE}
-CovidStates <- ggbarplot(covidDeaths.StateSummary.Over50, x = "State", y = "Total.Deaths",
+CovidStates <- ggbarplot(covidDeaths.StateSummary.Over50, x = "State", y = "Total.prop.CovidDeathsOver50",
           fill = "Sex", color = "Sex",           
           palette = c("pink", "blue"),  
           position = position_dodge(0.9),
-          x.text.angle = 90
+          title="Proportion of total deaths due to Covid19 in people 50 and older \nby sex and state",
+          x.text.angle = 90, xlab=FALSE, ylab="Proportion of Covid19 deaths"
           )
 CovidStates + font("x.text", size=10)
 ```
+This chart shows that across the states the proportion of deaths due to covid19 is higher in Males. I will look at the male/female difference in death rate in another post
 
-to see the plot in the lower right frame just type the name (guess what - it's an R object too!)
-
-```{r , echo=TRUE}
-CovidStates
-```
 *HINT* pull the lower right frame sideways to make it bigger
 
 to export the plot to a file - change to your path using code like this:

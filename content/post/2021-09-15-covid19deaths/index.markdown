@@ -410,9 +410,12 @@ CovidStates <- ggbarplot(covidDeaths.StateSummary.Over50, x = "State", y = "Tota
           fill = "Sex", color = "Sex",           
           palette = c("pink", "blue"),  
           position = position_dodge(0.9),
-          x.text.angle = 90          
+          x.text.angle = 90
           )
+CovidStates + font("x.text", size=10)
 ```
+
+<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-14-1.png" width="672" />
 
 to see the plot in the lower right frame just type the name (guess what - it's an R object too!)
 

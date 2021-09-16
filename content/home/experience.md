@@ -46,7 +46,7 @@ experience:
     company_logo: cwru
     location: Cleveland
     date_start: '1994-02-01'
-    date_end: ''
+    date_end: '2002-01-31'
     description: |2- 
     
        From 1994 to 2002 I worked as a statistical geneticist in the department of Population and Quantitative Health Sciences at CWRU where I performed:

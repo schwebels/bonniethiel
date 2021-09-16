@@ -111,7 +111,6 @@ Sex %in% (c("Male", "Female"))) %>%
   filter(!State ==  "United States") %>% 
   select(State, Age.Group, Sex, COVID.19.Deaths, Total.Deaths) 
 head(covidDeaths.MF.over50) 
-covidDeaths.MF.over50 %>% filter(State=="Ohio")
 ```
 
 3. Calculate the mean and median number of covid deaths
@@ -182,9 +181,9 @@ CovidStates <- ggbarplot(covidDeaths.StateSummary.Over50, x = "State", y = "Tota
           )
 CovidStates + font("x.text", size=10)
 ```
-This chart shows that across the states the proportion of deaths due to covid19 is higher in Males. I will look at the male/female difference in death rate in another post
+This chart shows that across the states the proportion of deaths due to covid19 is generally a bit higher in Males. I will look at the male/female difference in death rate in another post
 
-*HINT* pull the lower right frame sideways to make it bigger
+*HINT* if the chart is squeezed into the viewer box, pull the lower right frame sideways to make it bigger
 
 to export the plot to a file - change to your path using code like this:
 CovidStates %>% 

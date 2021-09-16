@@ -219,22 +219,6 @@ head(covidDeaths.MF.over50)
 ## 6 Alabama       65-74 years Female            1335         9984
 ```
 
-```r
-covidDeaths.MF.over50 %>% filter(State=="Ohio")
-```
-
-```
-##   State         Age.Group    Sex COVID.19.Deaths Total.Deaths
-## 1  Ohio       50-64 years   Male            1711        22981
-## 2  Ohio       65-74 years   Male            3030        27113
-## 3  Ohio       75-84 years   Male            3887        28583
-## 4  Ohio 85 years and over   Male            3469        26294
-## 5  Ohio       50-64 years Female            1101        14892
-## 6  Ohio       65-74 years Female            1960        19973
-## 7  Ohio       75-84 years Female            3198        27556
-## 8  Ohio 85 years and over Female            4843        41957
-```
-
 3. Calculate the mean and median number of covid deaths
 
 ```r
@@ -406,9 +390,9 @@ CovidStates + font("x.text", size=10)
 ```
 
 <img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-14-1.png" width="672" />
-This chart shows that across the states the proportion of deaths due to covid19 is higher in Males. I will look at the male/female difference in death rate in another post
+This chart shows that across the states the proportion of deaths due to covid19 is generally a bit higher in Males. I will look at the male/female difference in death rate in another post
 
-*HINT* pull the lower right frame sideways to make it bigger
+*HINT* if the chart is squeezed into the viewer box, pull the lower right frame sideways to make it bigger
 
 to export the plot to a file - change to your path using code like this:
 CovidStates %>% 

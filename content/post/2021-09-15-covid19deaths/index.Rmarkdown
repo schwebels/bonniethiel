@@ -37,16 +37,18 @@ download it to your desktop or another folder and copy the path to the clipboard
 
 ## step 2 Open R studio and click on File -> New File -> Rscript 
 
-## step 3 install necessary R packages (why? because you can't load all the programs available in R - it would be way too much. You have to pick what you need and load those particular programs)
+## step 3 install necessary R packages 
+(Why? Because you can't load all the programs available in R - it would be way too much. You have to pick what you need and load those particular programs)
 
 To install packages use the "install.packages()" function, i.e. in the bottom left console window type: install.packages(c("tidyverse", "magrittr"))
 
 **or** the easier way is to go to the right-side window of Rstudio where it shows tabs for Files-Plots-Packages-Help-Viewer, and click on the **Packages** tab. 
 Underneath, there is a button for "Install". Click install and type in the names of the packages in the pop-up box: "magrittr" , "tidyverse". These only have to be installed once until there is an update.
 
-## step 4 Load the libraries: this has to be done every time the script is run
+## step 4 Load the libraries 
+From now on, type or copy these commands into the scripting (upper left) area of RStudio.
 
-**magrittr** is for piping - explained later but just so you know, the %>% in R is called a pipe. You know the picture by Rene Magritte? of the pipe?
+**magrittr** is for piping - explained later but just so you know, the %>% in R is called a pipe. You know the picture by Rene Magritte? of the [pipe](https://publicdelivery.org/magritte-not-a-pipe/)?
 **tidyverse** contains many functions for data wrangling
 
 ```{r , echo=TRUE}
@@ -71,7 +73,7 @@ head(covidDeaths, n=5)
 
 
 ## step 6 Look at the age and sex categories
-*a really old and lame joke: how can you tell the difference between an epidemiologist and a clinician? The epidemiologist is broken down by age and sex*
+A really old and lame joke: *how can you tell the difference between an epidemiologist and a clinician? The epidemiologist is broken down by age and sex*
 
 ```{r }
 levels(as.factor(covidDeaths$Sex))
@@ -86,7 +88,6 @@ If you can see the categories above then everything seems to be working so let's
 
 
 ## FILTER (subset observations/rows) and SELECT (subset variables/columns) 
-
 for example, to get only the *Total* numbers  for males and females 18-29 years and keep only the state, age group, sex, covid death numbers and total death numbers:
 ```{r , echo=TRUE}
 covidDeaths.MF.18to29 <- covidDeaths %>% filter(Group=="By Total" & Age.Group == "18-29 years" & Sex %in% (c("Male", "Female"))) %>% select(State, Age.Group, Sex, COVID.19.Deaths, Total.Deaths) 
@@ -95,7 +96,7 @@ head(covidDeaths.MF.18to29)
 
 The '<-' symbol is pronounced 'gets' and the %>% is a pipe from the magrittr package and is called 'and then' so the syntax in words is:
 
-#covidDeaths.MF.18to29 'gets' the covidDeaths dataset 'and then' filters to Age.group== 18-29 and sex==Male or Female. **Remember to use '==' not just '='**
+covidDeaths.MF.18to29 'gets' the covidDeaths dataset 'and then' filters to Age.group== 18-29 and sex==Male or Female. **Remember to use '==' not just '='**
 
 ## now do a little analysis:
 
@@ -119,7 +120,7 @@ covidDeaths.MF.over50 %>% group_by(Sex) %>%
   summarize(meanDeaths=mean(COVID.19.Deaths), medianDeaths=median(COVID.19.Deaths))
 ```
 
-UGH it didn't work! - this is because there are some states with no COVID deaths and the mean and median functions do not exclude NA values by default, i.e. median(x, na.rm = FALSE). Let's change this #function argument# to TRUE so that the function will remove the NA values when computing the statistic
+UGH it didn't work! - this is because there are some states with no COVID deaths and the mean and median functions do not exclude NA values by default, i.e. median(x, na.rm = FALSE). Let's change this *function argument* to TRUE so that the function will remove the NA values when computing the statistic
 
 ```{r , echo=TRUE}
 covidDeaths.MF.over50 %>% group_by(Sex) %>% 
@@ -145,18 +146,21 @@ That looks better - now the overall mean and median proportion of deaths due to 
 
 ## Look at the data. Make a graph of the state proportion of covid deaths by sex
 
-get a graphing package called 'ggpubr' that's pretty easy to use. See <http://www.sthda.com/english/articles/24-ggpubr-publication-ready-plots/>
-install the package "ggpubr" using the lower right hand box in Rstudio
+Get a graphing package called 'ggpubr' that's pretty easy to use. See <http://www.sthda.com/english/articles/24-ggpubr-publication-ready-plots/>
+install the package "ggpubr" using the lower right hand box in Rstudio and then load the library using the library() function
 
 ```{r , echo=TRUE}
 library(ggpubr)
 ```
 
-to plot each state by deaths over 50 years we have to first condense all the deaths by sex within the state because we want only 2 rows for each state; one for M and one for F because right now the data look like this:
+To plot the proportion of Covid19 deaths among people >50 by sex for each state, we have to first condense all the deaths across age groups by sex within the state because we want only 2 rows for each state; one for M and one for F because right now the data look like this:
+
 ```{r , echo=TRUE}
-covidDeaths.MF.over50.1 %>% select(State, Age.Group, Sex, proportional.covid.deaths) %>% 
+covidDeaths.MF.over50.1 %>% select(State, Age.Group, Sex, COVID.19.Deaths, Total.Deaths, proportional.covid.deaths) %>% 
 head()
 ```
+
+Here's how to summarize (or summarise) the values within a group. Think of it as compressing multiple rows into a single summary row.
 
 ```{r , echo=TRUE}
 covidDeaths.StateSummary.Over50 <- covidDeaths.MF.over50.1 %>% group_by(State,Sex) %>%
@@ -167,6 +171,7 @@ head(covidDeaths.StateSummary.Over50)
 ```
 
 We have the data summarized nicely so we can try plotting:
+
 ```{r , echo=TRUE}
 CovidStates <- ggbarplot(covidDeaths.StateSummary.Over50, x = "State", y = "Total.prop.CovidDeathsOver50",
           fill = "Sex", color = "Sex",           

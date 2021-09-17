@@ -68,9 +68,11 @@ head() shows the first n rows of data
 ```{r , echo=TRUE}
 covidDeaths <- read.table(file="Provisional_COVID-19_Deaths_by_Sex_and_Age.csv", sep=",", header=TRUE) 
 str(covidDeaths)
-head(covidDeaths, n=5)
 ```
-
+The head() function let's you see the first few rows of data
+```{r , echo=TRUE}
+head(covidDeaths, n=4)
+```
 
 ## step 6 Look at the age and sex categories
 A really old and lame joke: *how can you tell the difference between an epidemiologist and a clinician? The epidemiologist is broken down by age and sex*

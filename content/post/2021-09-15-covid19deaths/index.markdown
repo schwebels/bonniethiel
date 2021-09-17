@@ -108,9 +108,10 @@ str(covidDeaths)
 ##  $ Pneumonia..Influenza..or.COVID.19.Deaths: int  914900 444 1431 292 448 2128 4883 8104 12494 19003 ...
 ##  $ Footnote                                : chr  "" "" "" "" ...
 ```
+The head() function let's you see the first few rows of data
 
 ```r
-head(covidDeaths, n=5)
+head(covidDeaths, n=4)
 ```
 
 ```
@@ -119,27 +120,22 @@ head(covidDeaths, n=5)
 ## 2 09/08/2021 01/01/2020 09/04/2021 By Total   NA    NA United States All Sexes
 ## 3 09/08/2021 01/01/2020 09/04/2021 By Total   NA    NA United States All Sexes
 ## 4 09/08/2021 01/01/2020 09/04/2021 By Total   NA    NA United States All Sexes
-## 5 09/08/2021 01/01/2020 09/04/2021 By Total   NA    NA United States All Sexes
 ##      Age.Group COVID.19.Deaths Total.Deaths Pneumonia.Deaths
 ## 1     All Ages          643858      5507901           583698
 ## 2 Under 1 year              98        31347              336
 ## 3   0-17 years             412        55352              924
 ## 4    1-4 years              50         5798              187
-## 5   5-14 years             138         9259              270
 ##   Pneumonia.and.COVID.19.Deaths Influenza.Deaths
 ## 1                        320617             9272
 ## 2                            12               22
 ## 3                            93              188
 ## 4                            10               65
-## 5                            40               80
 ##   Pneumonia..Influenza..or.COVID.19.Deaths Footnote
 ## 1                                   914900         
 ## 2                                      444         
 ## 3                                     1431         
-## 4                                      292         
-## 5                                      448
+## 4                                      292
 ```
-
 
 ## step 6 Look at the age and sex categories
 A really old and lame joke: *how can you tell the difference between an epidemiologist and a clinician? The epidemiologist is broken down by age and sex*
@@ -389,7 +385,7 @@ CovidStates <- ggbarplot(covidDeaths.StateSummary.Over50, x = "State", y = "Tota
 CovidStates + font("x.text", size=10)
 ```
 
-<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-14-1.png" width="672" />
+<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-15-1.png" width="672" />
 This chart shows that across the states the proportion of deaths due to covid19 is generally a bit higher in Males. I will look at the male/female difference in death rate in another post
 
 *HINT* if the chart is squeezed into the viewer box, pull the lower right frame sideways to make it bigger

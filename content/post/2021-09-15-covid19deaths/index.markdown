@@ -281,10 +281,6 @@ tail(covidDeaths.MF.over50.1)
 ## 424                0.03095573
 ```
 
-```r
-#covidDeaths.MF.over50.1 %>% filter(State=="Ohio")
-```
-
 
 ```r
 covidDeaths.MF.over50.1 %>% group_by(Sex) %>% 
@@ -305,7 +301,7 @@ covidDeaths.MF.over50.1 %>% group_by(Sex) %>%
 That looks better - now the overall mean and median proportion of deaths due to covid19 are about the same
 
 
-## Look at the data. Make a graph of the state proportion of covid deaths by sex
+## Look at the data. Make a graph of the proportion of covid deaths for each state by sex
 
 Get a graphing package called 'ggpubr' that's pretty easy to use. See <http://www.sthda.com/english/articles/24-ggpubr-publication-ready-plots/>
 install the package "ggpubr" using the lower right hand box in Rstudio and then load the library using the library() function

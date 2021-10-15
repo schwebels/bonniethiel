@@ -94,14 +94,12 @@ library(tidyverse)
 
 Copy the path from the clipboard in the read.table() function shown below so that R knows where to find your data
 
-str() is a very important function that shows the structure of the data file
-head() shows the first n rows of data
 
 ```{r , echo=TRUE}
 covidDeaths <- read.table(file="Provisional_COVID-19_Deaths_by_Sex_and_Age.csv", sep=",", header=TRUE) 
 ```
 The head() function let's you see the first few rows of data
-```{r , echo=TRUE}
+```{r , class.output="scroll-100"}
 head(covidDeaths, n=4)
 ```
 
@@ -166,7 +164,7 @@ OK first off we see clearly that the medians are smaller than the means. This te
 
 This reminds me that we should probably take into account the total number of deaths so that we can compare deaths across states while accounting for the differences in state populations.
 
-```{r , echo=TRUE}
+```{r , class.output="scroll-100"}
 covidDeaths.MF.over50.1 <- covidDeaths.MF.over50 %>% 
   mutate(proportional.covid.deaths = ifelse(COVID.19.Deaths==0, NA, COVID.19.Deaths/Total.Deaths))
 tail(covidDeaths.MF.over50.1)
@@ -197,7 +195,7 @@ head()
 
 Here's how to summarize (or summarise) the values within a group. Think of it as compressing multiple rows into a single summary row.
 
-```{r , echo=TRUE}
+```{r , class.output="scroll-100"}
 covidDeaths.StateSummary.Over50 <- covidDeaths.MF.over50.1 %>% group_by(State,Sex) %>%
       summarise(Total.DeathsOver50=sum(Total.Deaths, na.rm=TRUE),
                 Total.Covid19.DeathsOver50=sum(COVID.19.Deaths, na.rm=TRUE)) %>% 

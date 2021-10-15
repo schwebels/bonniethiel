@@ -103,8 +103,6 @@ library(tidyverse)
 
 Copy the path from the clipboard in the read.table() function shown below so that R knows where to find your data
 
-str() is a very important function that shows the structure of the data file
-head() shows the first n rows of data
 
 
 ```r
@@ -116,7 +114,7 @@ The head() function let's you see the first few rows of data
 head(covidDeaths, n=4)
 ```
 
-```
+```{.scroll-100}
 ##   Data.As.Of Start.Date   End.Date    Group Year Month         State       Sex
 ## 1 09/08/2021 01/01/2020 09/04/2021 By Total   NA    NA United States All Sexes
 ## 2 09/08/2021 01/01/2020 09/04/2021 By Total   NA    NA United States All Sexes
@@ -291,7 +289,7 @@ covidDeaths.MF.over50.1 <- covidDeaths.MF.over50 %>%
 tail(covidDeaths.MF.over50.1)
 ```
 
-```
+```{.scroll-100}
 ##           State         Age.Group    Sex COVID.19.Deaths Total.Deaths
 ## 419 Puerto Rico       75-84 years   Male             396         7617
 ## 420 Puerto Rico 85 years and over   Male             233         6450
@@ -381,7 +379,7 @@ covidDeaths.StateSummary.Over50 <- covidDeaths.MF.over50.1 %>% group_by(State,Se
 head(covidDeaths.StateSummary.Over50)
 ```
 
-```
+```{.scroll-100}
 ## # A tibble: 6 x 5
 ## # Groups:   State [3]
 ##   State   Sex    Total.DeathsOver~ Total.Covid19.Deaths~ Total.prop.CovidDeaths~

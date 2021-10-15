@@ -19,35 +19,58 @@ projects: []
 
 
 
+<style type="text/css">
+pre {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+pre[class] {
+  max-height: 100px;
+}
+</style>
+
+<style type="text/css">
+.scroll-100 {
+  max-height: 100px;
+  overflow-y: auto;
+  background-color: inherit;
+}
+</style>
+
+
+
 # Strategy: 
+Let's calculate some statistics about deaths from Covid-19 based on CDC data
   - Demonstrate how to get data from an internet source 
   - Do some data wrangling and simple statistical analysis 
   - Plot results
 
-This assumes you already have R and Rstudio. If not, please start [here](https://rstudio-education.github.io/hopr/starting.html) and then come back
+This tutorial assumes you already have R and Rstudio. If not, please start [here](https://rstudio-education.github.io/hopr/starting.html) and then come back
 
-Let's calculate some statistics about deaths from Covid-19 based on CDC data:
-<https://data.cdc.gov/NCHS/Provisional-COVID-19-Deaths-by-Sex-and-Age/9bhg-hcku>
+## <span style='color: red;'>Get the dataset from the CDC:</span> <https://data.cdc.gov/NCHS/Provisional-COVID-19-Deaths-by-Sex-and-Age/9bhg-hcku>
 
-## step 1 get the data
 On the CDC page click on the EXPORT button on the top right of the page to download the csv file called 'Provisional_COVID-19_Death_Counts_by_Sex__Age.csv'
 download it to your desktop or another folder and copy the path to the clipboard
 
-## step 2 Open R studio and click on File -> New File -> Rscript 
+## <span style='color: red;'>Open R studio and click on File -> New File -> Rscript</span> 
 
-## step 3 install necessary R packages 
+![Rstudio should look like this](FirstStepOpenRstudio.jpg)
+Type commands into the top left quadrant as shown above
+
+##  <span style='color: red;'>Install necessary R packages </span>  
 (Why? Because you can't load all the programs available in R - it would be way too much. You have to pick what you need and load those particular programs)
 
-To install packages use the "install.packages()" function, i.e. in the bottom left console window type: install.packages(c("tidyverse", "magrittr"))
+To install packages use the "install.packages()" function as shown above
 
-**or** the easier way is to go to the right-side window of Rstudio where it shows tabs for Files-Plots-Packages-Help-Viewer, and click on the **Packages** tab. 
-Underneath, there is a button for "Install". Click install and type in the names of the packages in the pop-up box: "magrittr" , "tidyverse". These only have to be installed once until there is an update.
+**or** the easier way is to go to the lower right-side window of Rstudio and click on the **Packages** tab. 
+Underneath, there is a button for "Install". Click "Install" and type in the names of the packages in the pop-up box: "magrittr" , "tidyverse". These only have to be installed once.
 
-## step 4 Load the libraries 
-From now on, type or copy these commands into the scripting (upper left) area of RStudio.
+## <span style='color: red;'>Load the libraries</span> 
 
 **magrittr** is for piping - explained later but just so you know, the %>% in R is called a pipe. You know the picture by Rene Magritte? of the [pipe](https://publicdelivery.org/magritte-not-a-pipe/)?
 **tidyverse** contains many functions for data wrangling
+
 
 
 ```r
@@ -74,7 +97,7 @@ library(tidyverse)
 ## x purrr::set_names() masks magrittr::set_names()
 ```
 
-## step 5  Load the dataset using the read.csv() or read.table() function
+## <span style='color: red;'>Load the dataset using read.csv() or read.table()</span>
 
 *NOTE:* the path to your file needs forward slashes / for R not back slashes like windows uses. If you copy your path from windows, change the slashes
 
@@ -86,27 +109,6 @@ head() shows the first n rows of data
 
 ```r
 covidDeaths <- read.table(file="Provisional_COVID-19_Deaths_by_Sex_and_Age.csv", sep=",", header=TRUE) 
-str(covidDeaths)
-```
-
-```
-## 'data.frame':	66096 obs. of  16 variables:
-##  $ Data.As.Of                              : chr  "09/08/2021" "09/08/2021" "09/08/2021" "09/08/2021" ...
-##  $ Start.Date                              : chr  "01/01/2020" "01/01/2020" "01/01/2020" "01/01/2020" ...
-##  $ End.Date                                : chr  "09/04/2021" "09/04/2021" "09/04/2021" "09/04/2021" ...
-##  $ Group                                   : chr  "By Total" "By Total" "By Total" "By Total" ...
-##  $ Year                                    : int  NA NA NA NA NA NA NA NA NA NA ...
-##  $ Month                                   : int  NA NA NA NA NA NA NA NA NA NA ...
-##  $ State                                   : chr  "United States" "United States" "United States" "United States" ...
-##  $ Sex                                     : chr  "All Sexes" "All Sexes" "All Sexes" "All Sexes" ...
-##  $ Age.Group                               : chr  "All Ages" "Under 1 year" "0-17 years" "1-4 years" ...
-##  $ COVID.19.Deaths                         : int  643858 98 412 50 138 1232 3043 5395 8634 13567 ...
-##  $ Total.Deaths                            : int  5507901 31347 55352 5798 9259 59389 104738 123138 150055 177545 ...
-##  $ Pneumonia.Deaths                        : int  583698 336 924 187 270 1317 3071 5042 7728 11823 ...
-##  $ Pneumonia.and.COVID.19.Deaths           : int  320617 12 93 10 40 496 1367 2551 4167 6714 ...
-##  $ Influenza.Deaths                        : int  9272 22 188 65 80 80 148 236 324 366 ...
-##  $ Pneumonia..Influenza..or.COVID.19.Deaths: int  914900 444 1431 292 448 2128 4883 8104 12494 19003 ...
-##  $ Footnote                                : chr  "" "" "" "" ...
 ```
 The head() function let's you see the first few rows of data
 
@@ -137,7 +139,7 @@ head(covidDeaths, n=4)
 ## 4                                      292
 ```
 
-## step 6 Look at the age and sex categories
+## <span style='color: red;'>Look at the age and sex categories</span> 
 A really old and lame joke: *how can you tell the difference between an epidemiologist and a clinician? The epidemiologist is broken down by age and sex*
 
 
@@ -162,12 +164,37 @@ levels(as.factor(covidDeaths$Age.Group))
 ## [13] "65-74 years"       "75-84 years"       "85 years and over"
 ## [16] "All Ages"          "Under 1 year"
 ```
-The levels() function shows all the different categories that are included in a variable. levels only works on factors so the as.factor() function changes the character variable to a factor. How do you know if a variable is a factor or character or numeric? Look at the output from str() 
+The levels() function shows all the different categories that are included in a variable. levels only works on factors so the as.factor() function changes the character variable to a factor. How do you know if a variable is a factor or character or numeric? Look at the output from the str() function.
+
+
+```r
+str(covidDeaths)
+```
+
+```{.scroll-100}
+## 'data.frame':	66096 obs. of  16 variables:
+##  $ Data.As.Of                              : chr  "09/08/2021" "09/08/2021" "09/08/2021" "09/08/2021" ...
+##  $ Start.Date                              : chr  "01/01/2020" "01/01/2020" "01/01/2020" "01/01/2020" ...
+##  $ End.Date                                : chr  "09/04/2021" "09/04/2021" "09/04/2021" "09/04/2021" ...
+##  $ Group                                   : chr  "By Total" "By Total" "By Total" "By Total" ...
+##  $ Year                                    : int  NA NA NA NA NA NA NA NA NA NA ...
+##  $ Month                                   : int  NA NA NA NA NA NA NA NA NA NA ...
+##  $ State                                   : chr  "United States" "United States" "United States" "United States" ...
+##  $ Sex                                     : chr  "All Sexes" "All Sexes" "All Sexes" "All Sexes" ...
+##  $ Age.Group                               : chr  "All Ages" "Under 1 year" "0-17 years" "1-4 years" ...
+##  $ COVID.19.Deaths                         : int  643858 98 412 50 138 1232 3043 5395 8634 13567 ...
+##  $ Total.Deaths                            : int  5507901 31347 55352 5798 9259 59389 104738 123138 150055 177545 ...
+##  $ Pneumonia.Deaths                        : int  583698 336 924 187 270 1317 3071 5042 7728 11823 ...
+##  $ Pneumonia.and.COVID.19.Deaths           : int  320617 12 93 10 40 496 1367 2551 4167 6714 ...
+##  $ Influenza.Deaths                        : int  9272 22 188 65 80 80 148 236 324 366 ...
+##  $ Pneumonia..Influenza..or.COVID.19.Deaths: int  914900 444 1431 292 448 2128 4883 8104 12494 19003 ...
+##  $ Footnote                                : chr  "" "" "" "" ...
+```
   
 If you can see the categories above then everything seems to be working so let's move on to data wrangling
 
 
-## FILTER (subset observations/rows) and SELECT (subset variables/columns) 
+## <span style='color: red;'>FILTER (subset observations/rows) and SELECT (subset variables/columns) </span> 
 for example, to get only the *Total* numbers  for males and females 18-29 years and keep only the state, age group, sex, covid death numbers and total death numbers:
 
 ```r
@@ -187,9 +214,9 @@ head(covidDeaths.MF.18to29)
 
 The '<-' symbol is pronounced 'gets' and the %>% is a pipe from the magrittr package and is called 'and then' so the syntax in words is:
 
-covidDeaths.MF.18to29 'gets' the covidDeaths dataset 'and then' filters to Age.group== 18-29 and sex==Male or Female. **Remember to use '==' not just '='**
+*covidDeaths.MF.18to29 'gets' the covidDeaths dataset 'and then' filters to Age.group== 18-29 and sex==Male or Female.*  **Remember to use '==' not just '='**
 
-## now do a little analysis:
+## <span style='color: red;'> Now do a little analysis: </span>
 
 What are the mean and median number of covid deaths across all states by male and female for 50 years and older?
 1. Get rid of the 'United States' total number and include only the state totals
@@ -301,7 +328,7 @@ covidDeaths.MF.over50.1 %>% group_by(Sex) %>%
 That looks better - now the overall mean and median proportion of deaths due to covid19 are about the same
 
 
-## Look at the data. Make a graph of the proportion of covid deaths for each state by sex
+##  <span style='color: red;'>Look at the data. Make a graph of the proportion of covid deaths for each state by sex</span> 
 
 Get a graphing package called 'ggpubr' that's pretty easy to use. See <http://www.sthda.com/english/articles/24-ggpubr-publication-ready-plots/>
 install the package "ggpubr" using the lower right hand box in Rstudio and then load the library using the library() function
@@ -381,7 +408,7 @@ CovidStates <- ggbarplot(covidDeaths.StateSummary.Over50, x = "State", y = "Tota
 CovidStates + font("x.text", size=10)
 ```
 
-<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-15-1.png" width="672" />
+<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-19-1.png" width="672" />
 This chart shows that across the states the proportion of deaths due to covid19 is generally a bit higher in Males. I will look at the male/female difference in death rate in another post
 
 *HINT* if the chart is squeezed into the viewer box, pull the lower right frame sideways to make it bigger

@@ -19,44 +19,76 @@ projects: []
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+```{r , echo=FALSE}
+colorize <- function(x, color) {
+  if (knitr::is_latex_output()) {
+    sprintf("\\textcolor{%s}{%s}", color, x)
+  } else if (knitr::is_html_output()) {
+    sprintf("<span style='color: %s;'>%s</span>", color,
+      x)
+  } else x
+} 
+```
+
+```{css, echo=FALSE}
+pre {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+pre[class] {
+  max-height: 100px;
+}
+```
+
+```{css, echo=FALSE}
+.scroll-100 {
+  max-height: 100px;
+  overflow-y: auto;
+  background-color: inherit;
+}
+```
+
 
 
 # Strategy: 
+Let's calculate some statistics about deaths from Covid-19 based on CDC data
   - Demonstrate how to get data from an internet source 
   - Do some data wrangling and simple statistical analysis 
   - Plot results
 
-This assumes you already have R and Rstudio. If not, please start [here](https://rstudio-education.github.io/hopr/starting.html) and then come back
+This tutorial assumes you already have R and Rstudio. If not, please start [here](https://rstudio-education.github.io/hopr/starting.html) and then come back
 
-Let's calculate some statistics about deaths from Covid-19 based on CDC data:
-<https://data.cdc.gov/NCHS/Provisional-COVID-19-Deaths-by-Sex-and-Age/9bhg-hcku>
+## `r colorize("Get the dataset from the CDC:", "red")` <https://data.cdc.gov/NCHS/Provisional-COVID-19-Deaths-by-Sex-and-Age/9bhg-hcku>
 
-## step 1 get the data
 On the CDC page click on the EXPORT button on the top right of the page to download the csv file called 'Provisional_COVID-19_Death_Counts_by_Sex__Age.csv'
 download it to your desktop or another folder and copy the path to the clipboard
 
-## step 2 Open R studio and click on File -> New File -> Rscript 
+## `r colorize("Open R studio and click on File -> New File -> Rscript", "red")` 
 
-## step 3 install necessary R packages 
+![Rstudio should look like this](FirstStepOpenRstudio.jpg)
+Type commands into the top left quadrant as shown above
+
+##  `r colorize("Install necessary R packages ", "red")`  
 (Why? Because you can't load all the programs available in R - it would be way too much. You have to pick what you need and load those particular programs)
 
-To install packages use the "install.packages()" function, i.e. in the bottom left console window type: install.packages(c("tidyverse", "magrittr"))
+To install packages use the "install.packages()" function as shown above
 
-**or** the easier way is to go to the right-side window of Rstudio where it shows tabs for Files-Plots-Packages-Help-Viewer, and click on the **Packages** tab. 
-Underneath, there is a button for "Install". Click install and type in the names of the packages in the pop-up box: "magrittr" , "tidyverse". These only have to be installed once until there is an update.
+**or** the easier way is to go to the lower right-side window of Rstudio and click on the **Packages** tab. 
+Underneath, there is a button for "Install". Click "Install" and type in the names of the packages in the pop-up box: "magrittr" , "tidyverse". These only have to be installed once.
 
-## step 4 Load the libraries 
-From now on, type or copy these commands into the scripting (upper left) area of RStudio.
+## `r colorize("Load the libraries", "red")` 
 
 **magrittr** is for piping - explained later but just so you know, the %>% in R is called a pipe. You know the picture by Rene Magritte? of the [pipe](https://publicdelivery.org/magritte-not-a-pipe/)?
 **tidyverse** contains many functions for data wrangling
 
-```{r , echo=TRUE}
+
+```{r ,class.output="scroll-100"}
 library(magrittr) 
 library(tidyverse) 
 ```
 
-## step 5  Load the dataset using the read.csv() or read.table() function
+## `r colorize("Load the dataset using read.csv() or read.table()", "red")`
 
 *NOTE:* the path to your file needs forward slashes / for R not back slashes like windows uses. If you copy your path from windows, change the slashes
 
@@ -67,14 +99,13 @@ head() shows the first n rows of data
 
 ```{r , echo=TRUE}
 covidDeaths <- read.table(file="Provisional_COVID-19_Deaths_by_Sex_and_Age.csv", sep=",", header=TRUE) 
-str(covidDeaths)
 ```
 The head() function let's you see the first few rows of data
 ```{r , echo=TRUE}
 head(covidDeaths, n=4)
 ```
 
-## step 6 Look at the age and sex categories
+## `r colorize("Look at the age and sex categories", "red")` 
 A really old and lame joke: *how can you tell the difference between an epidemiologist and a clinician? The epidemiologist is broken down by age and sex*
 
 ```{r }
@@ -84,12 +115,16 @@ levels(as.factor(covidDeaths$Sex))
 ```{r }
 levels(as.factor(covidDeaths$Age.Group))
 ```
-The levels() function shows all the different categories that are included in a variable. levels only works on factors so the as.factor() function changes the character variable to a factor. How do you know if a variable is a factor or character or numeric? Look at the output from str() 
+The levels() function shows all the different categories that are included in a variable. levels only works on factors so the as.factor() function changes the character variable to a factor. How do you know if a variable is a factor or character or numeric? Look at the output from the str() function.
+
+```{r ,class.output="scroll-100"}
+str(covidDeaths)
+```
   
 If you can see the categories above then everything seems to be working so let's move on to data wrangling
 
 
-## FILTER (subset observations/rows) and SELECT (subset variables/columns) 
+## `r colorize("FILTER (subset observations/rows) and SELECT (subset variables/columns) ", "red")` 
 for example, to get only the *Total* numbers  for males and females 18-29 years and keep only the state, age group, sex, covid death numbers and total death numbers:
 ```{r , echo=TRUE}
 covidDeaths.MF.18to29 <- covidDeaths %>% filter(Group=="By Total" & Age.Group == "18-29 years" & Sex %in% (c("Male", "Female"))) %>% select(State, Age.Group, Sex, COVID.19.Deaths, Total.Deaths) 
@@ -98,9 +133,9 @@ head(covidDeaths.MF.18to29)
 
 The '<-' symbol is pronounced 'gets' and the %>% is a pipe from the magrittr package and is called 'and then' so the syntax in words is:
 
-covidDeaths.MF.18to29 'gets' the covidDeaths dataset 'and then' filters to Age.group== 18-29 and sex==Male or Female. **Remember to use '==' not just '='**
+*covidDeaths.MF.18to29 'gets' the covidDeaths dataset 'and then' filters to Age.group== 18-29 and sex==Male or Female.*  **Remember to use '==' not just '='**
 
-## now do a little analysis:
+## `r colorize(" Now do a little analysis: ", "red")`
 
 What are the mean and median number of covid deaths across all states by male and female for 50 years and older?
 1. Get rid of the 'United States' total number and include only the state totals
@@ -144,7 +179,7 @@ covidDeaths.MF.over50.1 %>% group_by(Sex) %>%
 That looks better - now the overall mean and median proportion of deaths due to covid19 are about the same
 
 
-## Look at the data. Make a graph of the proportion of covid deaths for each state by sex
+##  `r colorize("Look at the data. Make a graph of the proportion of covid deaths for each state by sex", "red")` 
 
 Get a graphing package called 'ggpubr' that's pretty easy to use. See <http://www.sthda.com/english/articles/24-ggpubr-publication-ready-plots/>
 install the package "ggpubr" using the lower right hand box in Rstudio and then load the library using the library() function

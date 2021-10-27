@@ -1,22 +1,30 @@
 ---
-title: R tutorial on downloading and analyzing CDC Covid19 death numbers
+title: Analyze Covid19 data from the CDC
 author: Bonnie Thiel
 date: '2021-09-15'
 slug: covid19deaths
 categories: []
 tags: []
-subtitle: ''
-summary: ''
-authors: []
+subtitle: 'This tutorial will show how to use R to download CDC data and create a chart showing the number of Covid-19 deaths by sex for each state'
+summary: 'This tutorial will show how to use R to download CDC data and create a chart showing the number of Covid-19 deaths by sex for each state'
+authors: 
 lastmod: '2021-09-15T17:48:59-04:00'
 featured: no
 image:
-  caption: ''
+  caption: 'Image credit:[**CDC**](https://www.cdc.gov/media/dpk/diseases-and-conditions/coronavirus/images/outbreak-coronavirus-world-1024x506px.jpg)'
   focal_point: ''
   preview_only: no
 projects: []
 ---
 
+
+
+# Strategy: 
+Let's calculate some statistics about deaths from Covid-19 based on CDC data
+  - Demonstrate how to get data from an internet source 
+  - Do some data wrangling and simple statistical analysis 
+  - Plot results
+  
 
 
 <style type="text/css">
@@ -38,13 +46,6 @@ pre[class] {
 }
 </style>
 
-
-
-# Strategy: 
-Let's calculate some statistics about deaths from Covid-19 based on CDC data
-  - Demonstrate how to get data from an internet source 
-  - Do some data wrangling and simple statistical analysis 
-  - Plot results
 
 This tutorial assumes you already have R and Rstudio. If not, please start [here](https://rstudio-education.github.io/hopr/starting.html) and then come back
 
